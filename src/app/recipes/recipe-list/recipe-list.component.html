@@ -5,6 +5,7 @@
     <hr />
     <div class="col-xs-12">
         <app-recipe-item
+            (recipeName)="selectedRecipe($event)"
             *ngFor="let recipeEl of recipes"
             [recipe]="recipeEl"
         >
