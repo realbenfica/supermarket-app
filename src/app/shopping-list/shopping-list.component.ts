@@ -10,9 +10,9 @@ import { ShoppingListService } from './shopping-list.service';
 export class ShoppingListComponent implements OnInit {
     ingredients: Ingredient[] = [];
 
-    ingredientAdded(newIngredient) {
-        this.ingredients.push(newIngredient)
-    }
+    // ingredientAdded(newIngredient) {
+    //     this.ingredients.push(newIngredient)
+    // }
 
     constructor(private shoppingListService: ShoppingListService) {}
 
