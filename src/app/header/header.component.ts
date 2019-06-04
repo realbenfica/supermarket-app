@@ -6,19 +6,19 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-@Output() recipes = new EventEmitter()
-@Output() shopping = new EventEmitter()
+// @Output() recipes = new EventEmitter()
+// @Output() shopping = new EventEmitter()
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onRecipes() {
-      this.recipes.emit('recipes');
-  }
+//   onRecipes() {
+//       this.recipes.emit('recipes');
+//   }
 
-  onShopping() {
-    this.shopping.emit('shopping');
-  }
+//   onShopping() {
+//     this.shopping.emit('shopping');
+//   }
 }
