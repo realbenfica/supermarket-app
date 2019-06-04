@@ -38,6 +38,10 @@ constructor(private shoppingListService: ShoppingListService) {}
         return this.recipes.slice();
     }
 
+    getRecipe(index:number) {
+        return this.recipes.slice()[index];
+    }
+
     toShoppingList(ingredients: Ingredient[]) {
         this.shoppingListService.addIngredients(ingredients);
     }

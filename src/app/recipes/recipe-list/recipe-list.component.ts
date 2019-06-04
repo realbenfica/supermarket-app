@@ -17,6 +17,6 @@ export class RecipeListComponent implements OnInit {
     }
 
     test() {
-        console.log("Ow noooo");
+        console.log("Everyone can cook!");
     }
 }
