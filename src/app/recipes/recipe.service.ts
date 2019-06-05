@@ -11,6 +11,19 @@ export class RecipeService {
 
     private recipes: Recipe[] = [
         new Recipe(
+            'The Perfect Salad',
+            'Linachka would love this one for sure!',
+            'http://scibosnian.com/wp-content/uploads/2017/07/Salmon_Salad_2.jpg',
+            [
+                new Ingredient('avocado', 1),
+                new Ingredient('cucumber', 1),
+                new Ingredient('cherry tomatoes', 10),
+                new Ingredient('salmon', 1),
+                new Ingredient('sesame seeds', 50),
+                new Ingredient('salad', 1),
+            ]
+        ),
+        new Recipe(
             'Fruit Salad',
             'This is a very delicious salad full of flavour!',
             'https://live.staticflickr.com/5737/30622968353_35e06fcb52_b.jpg',
@@ -31,7 +44,7 @@ export class RecipeService {
                 new Ingredient('pear', 1),
                 new Ingredient('bread', 2)
             ]
-        ),
+        )
     ];
 
 constructor(private shoppingListService: ShoppingListService) {}
@@ -57,5 +70,10 @@ constructor(private shoppingListService: ShoppingListService) {}
         this.recipes[index] = newRecipe;
         this.recipesChanged.next(this.recipes.slice());
 
+    }
+
+    deleteRecipe(index: number) {
+        this.recipes.splice(index, 1);
+        this.recipesChanged.next(this.recipes.slice());
     }
 }

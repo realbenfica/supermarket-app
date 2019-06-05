@@ -29,18 +29,18 @@
                     </a>
                 </li>
                 <li><a style="cursor: pointer;" (click)="editRecipe()">Edit Recipe</a></li>
-                <li><a style="cursor: pointer;">Delete Recipe</a></li>
+                <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
             </ul>
         </div>
     </div>
 </div>
-
+<hr>
 <div class="row">
     <div class="col-xs-12">
         {{ selectedRecipe.description }}
     </div>
 </div>
-
+<hr>
 <div class="row">
     <div class="col-xs-12">
         <ul class="list-group">
