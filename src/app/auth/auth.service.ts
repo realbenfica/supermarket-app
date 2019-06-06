@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EmailValidator } from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { logging } from 'protractor';
 import { stringify } from 'querystring';
 import { User } from './user.model';
@@ -19,7 +19,7 @@ export interface AuthResponseData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-user = new Subject<User>();
+user = new BehaviorSubject<User>(null);
 
     constructor(private http: HttpClient) {}
 
@@ -34,8 +34,12 @@ user = new Subject<User>();
                 }
             )
             .pipe(catchError(this.handleError), tap(resData => {
-                const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-                const user = new User(resData.email, resData.localId, resData.idToken, expirationDate);
+                this.handleAuthentication(
+                    resData.email,
+                    resData.localId,
+                    +resData.expiresIn,
+                    resData.idToken
+                    );
             }));
     }
 
@@ -47,9 +51,21 @@ user = new Subject<User>();
                 password: password,
                 returnSecureToken: true
             })
-            .pipe(catchError(this.handleError));
+            .pipe(catchError(this.handleError), tap(resData => {
+                this.handleAuthentication(
+                    resData.email,
+                    resData.localId,
+                    +resData.expiresIn,
+                    resData.idToken
+                    );
+            }));
     }
 
+    private handleAuthentication(email: string, userId: string, token: string, expiresIn: string) {
+        const expirationDate = new Date(new Date().getTime() + +expiresIn * 1000);
+        const user = new User(email, userId, token, expirationDate);
+        this.user.next(user);
+    }
 
     private handleError(errorRes: HttpErrorResponse) {
         let errorMessage = 'An unknown error occurred!';
