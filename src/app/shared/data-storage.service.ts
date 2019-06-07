@@ -27,31 +27,25 @@ export class DataStorageService {
     }
 
     fetchRecipes() {
-        return this.authService.user.pipe(
-            take(1),
-            exhaustMap(user => {
-                console.log(user.token)
-                return this.http.get<Recipe[]>(
-                    'https://supermarket-app-b7739.firebaseio.com/recipes.json',
-                    {
-                        params: new HttpParams().set('auth', user.token)
-                    }
-                );
-            }),
-            map(recipes => {
-                return recipes.map(recipes => {
-                    return {
-                        ...recipes,
-                        ingredients: recipes.ingredients
-                            ? recipes.ingredients
-                            : []
-                    };
-                });
-            }),
-            tap(recipes => {
-                this.recipesService.setRecipes(recipes);
-            })
-        );
+        return this.http
+            .get<Recipe[]>(
+                'https://supermarket-app-b7739.firebaseio.com/recipes.json'
+            )
+            .pipe(
+                map(recipes => {
+                    return recipes.map(recipes => {
+                        return {
+                            ...recipes,
+                            ingredients: recipes.ingredients
+                                ? recipes.ingredients
+                                : []
+                        };
+                    });
+                }),
+                tap(recipes => {
+                    this.recipesService.setRecipes(recipes);
+                })
+            );
 
         // .subscribe(recipes => {
         //     this.recipesService.setRecipes(recipes);

@@ -38,6 +38,7 @@ isAuthenticated = false;
 
 onLogout() {
     this.isAuthenticated = false;
+    this.authService.logout();
 }
 
 //   onRecipes() {
