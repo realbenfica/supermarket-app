@@ -37,8 +37,8 @@ user = new BehaviorSubject<User>(null);
                 this.handleAuthentication(
                     resData.email,
                     resData.localId,
-                    +resData.expiresIn,
-                    resData.idToken
+                    resData.idToken,
+                    +resData.expiresIn
                     );
             }));
     }
@@ -55,8 +55,8 @@ user = new BehaviorSubject<User>(null);
                 this.handleAuthentication(
                     resData.email,
                     resData.localId,
-                    +resData.expiresIn,
-                    resData.idToken
+                    resData.idToken,
+                    +resData.expiresIn
                     );
             }));
     }
